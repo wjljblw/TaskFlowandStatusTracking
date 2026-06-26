@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分类管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/natural.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-natural">
+    <div class="container">
+        <a class="navbar-brand" href="#">🍃 管理后台</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/admin/dashboard">首页</a>
+            <a class="nav-link" href="/admin/tasks">任务管理</a>
+            <a class="nav-link" href="/admin/categories">分类管理</a>
+            <a class="nav-link" href="/admin/stats">统计报表</a>
+            <a class="nav-link" href="/user/logout">退出</a>
+        </div>
+    </div>
+</nav>
+<div class="container section-spacing">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="page-title mb-0">分类管理</h4>
+        <button class="btn btn-moss" onclick="showModal()">+ 新增分类</button>
+    </div>
+    <div class="table-natural">
+        <table class="table mb-0">
+            <thead>
+                <tr><th>ID</th><th>名称</th><th>描述</th><th>创建时间</th><th>操作</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${categories}">
+                <td th:text="${c.id}"></td>
+                <td th:text="${c.name}"></td>
+                <td th:text="${c.description ?: '-'}"></td>
+                <td th:text="${#temporals.format(c.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td>
+                    <button class="btn btn-lake btn-sm" th:data-id="${c.id}" th:data-name="${c.name}" th:data-desc="${c.description}" onclick="editCategory(this)">编辑</button>
+                    <button class="btn btn-danger-natural btn-sm" th:data-id="${c.id}" onclick="deleteCategory(this)">删除</button>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(categories)}">
+                <td colspan="5" class="text-center py-4 text-muted">暂无分类数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade modal-natural" id="categoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">分类信息</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="categoryId">
+                <div class="mb-3">
+                    <label class="form-label">名称 <span class="text-danger">*</span></label>
+                    <input type="text" id="categoryName" class="form-control form-control-natural" placeholder="请输入分类名称" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">描述</label>
+                    <input type="text" id="categoryDesc" class="form-control form-control-natural" placeholder="请输入分类描述（选填）">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sand" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-moss" onclick="saveCategory()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    var modal = new bootstrap.Modal(document.getElementById('categoryModal'));
+    function showModal() {
+        $('#categoryId').val('');
+        $('#categoryName').val('');
+        $('#categoryDesc').val('');
+        modal.show();
+    }
+    function editCategory(btn) {
+        $('#categoryId').val($(btn).data('id'));
+        $('#categoryName').val($(btn).data('name'));
+        $('#categoryDesc').val($(btn).data('desc') || '');
+        modal.show();
+    }
+    function saveCategory() {
+        var data = {
+            id: $('#categoryId').val() || null,
+            name: $('#categoryName').val(),
+            description: $('#categoryDesc').val()
+        };
+        $.ajax({
+            url: '/admin/category/save',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(res) {
+                if (res.code === 200) location.reload();
+                else alert(res.msg);
+            }
+        });
+    }
+    function deleteCategory(btn) {
+        if (confirm('确定删除该分类？')) {
+            $.ajax({
+                url: '/admin/category/' + $(btn).data('id'),
+                type: 'DELETE',
+                success: function(res) {
+                    if (res.code === 200) location.reload();
+                    else alert(res.msg);
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

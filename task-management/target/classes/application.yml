@@ -1,0 +1,72 @@
+# 服务器配置
+# 配置内嵌服务器的监听端口
+server:
+  port: 8081
+
+
+# Spring框架核心配置
+spring:
+  # 数据源配置，用于连接MySQL数据库
+  datasource:
+    # 数据库连接URL，指定数据库地址、端口、数据库名以及连接参数
+    # useSSL=false: 不使用SSL连接
+    # serverTimezone=Asia/Shanghai: 设置服务器时区为上海
+    # characterEncoding=utf8: 设置字符编码为UTF-8
+    url: jdbc:mysql://localhost:3306/task_db?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    # 数据库用户名
+    username: root
+    # 数据库密码
+    password: 123456
+    # MySQL驱动类名，使用MySQL Connector/J 8.0版本
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Servlet配置
+  servlet:
+    # 文件上传相关配置
+    multipart:
+      # 单个文件最大大小限制为10MB
+      max-file-size: 10MB
+      # 单次请求最大大小限制为10MB
+      max-request-size: 10MB
+    session:
+      # 会话超时时间（30分钟无操作也失效）
+      timeout: 30m
+      cookie:
+        # 设为临时cookie（浏览器关闭后删除）
+        max-age: -1
+
+  # Thymeleaf模板引擎配置
+  thymeleaf:
+    # 是否启用模板缓存，开发环境设置为false便于调试
+    cache: false
+    # 模板文件前缀路径，指向classpath下的templates目录
+    prefix: classpath:/templates/
+    # 模板文件后缀名
+    suffix: .html
+
+# MyBatis持久层框架配置
+mybatis:
+  # Mapper XML文件位置，指向classpath下的mapper目录中所有xml文件
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类别名包扫描路径，简化Mapper XML中的类型引用
+  type-aliases-package: com.xingjin.entity
+  # MyBatis核心配置
+  configuration:
+    # 是否开启驼峰命名规则映射，自动将数据库下划线命名转换为Java驼峰命名
+    map-underscore-to-camel-case: true
+
+# 日志配置
+logging:
+  # 日志级别配置
+  level:
+    # 设置项目包路径下的日志级别为DEBUG，便于开发调试
+    com.xingjin: DEBUG
+  # 日志文件配置
+  file:
+    # 指定日志文件的存储路径和文件名
+    name: logs/task-management.log
+
+# 自定义上传配置
+upload:
+  # 文件上传存储路径
+  path: uploads/

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/natural.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-natural">
+    <div class="container">
+        <a class="navbar-brand" href="#">🍃 管理后台</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/admin/dashboard">首页</a>
+            <a class="nav-link" href="/admin/tasks">任务管理</a>
+            <a class="nav-link" href="/admin/categories">分类管理</a>
+            <a class="nav-link" href="/admin/stats">统计报表</a>
+            <a class="nav-link" href="/user/logout">退出</a>
+        </div>
+    </div>
+</nav>
+<div class="container section-spacing">
+    <h4 class="page-title mb-4">首页</h4>
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="stat-card stat-card-lake">
+                <h3 th:text="${stats.total}">0</h3>
+                <p>📋 总任务数</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-rock">
+                <h3 th:text="${stats.pending}">0</h3>
+                <p>⏳ 待处理</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-earth">
+                <h3 th:text="${stats.inProgress}">0</h3>
+                <p>🔄 进行中</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-moss">
+                <h3 th:text="${stats.completed}">0</h3>
+                <p>✅ 已完成</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-natural">
+        <div class="card-header">
+            <h6 class="mb-0">📝 最近操作日志</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead style="background: var(--sand-light);">
+                        <tr><th>用户</th><th>操作</th><th>IP</th><th>时间</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="log : ${logs}">
+                        <td th:text="${log.username}"></td>
+                        <td th:text="${log.operation}"></td>
+                        <td th:text="${log.ip}"></td>
+                        <td th:text="${#temporals.format(log.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(logs)}">
+                        <td colspan="4" class="text-center py-3 text-muted">暂无操作日志</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

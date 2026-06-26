@@ -1,0 +1,15 @@
+2025-12-19 21:53:24.897  INFO 19216 --- [main] com.xingjin.TaskManagementApplication    : Starting TaskManagementApplication using Java 17.0.8 on laoli with PID 19216 (D:\作业\javaweb_2\maxkao\task-management\target\classes started by 18796 in D:\作业\javaweb_2\maxkao\task-management)
+2025-12-19 21:53:24.911 DEBUG 19216 --- [main] com.xingjin.TaskManagementApplication    : Running with Spring Boot v2.7.18, Spring v5.3.31
+2025-12-19 21:53:24.912  INFO 19216 --- [main] com.xingjin.TaskManagementApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-12-19 21:53:26.301  INFO 19216 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2025-12-19 21:53:26.311  INFO 19216 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-19 21:53:26.321  INFO 19216 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-12-19 21:53:26.449  INFO 19216 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-19 21:53:26.460  INFO 19216 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1495 ms
+2025-12-19 21:53:26.646  INFO 19216 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-12-19 21:53:26.805  INFO 19216 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-12-19 21:53:27.540  INFO 19216 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2025-12-19 21:53:27.552  INFO 19216 --- [main] com.xingjin.TaskManagementApplication    : Started TaskManagementApplication in 3.11 seconds (JVM running for 3.487)
+2025-12-19 21:53:33.071  INFO 19216 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-19 21:53:33.073  INFO 19216 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-12-19 21:53:33.074  INFO 19216 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

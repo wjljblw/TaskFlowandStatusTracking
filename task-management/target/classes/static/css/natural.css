@@ -1,0 +1,443 @@
+/* 自然质感设计系统 - Natural Texture Design System */
+
+:root {
+    /* 大地与植物色盘 */
+    --moss-green: #5B7355;
+    --moss-light: #7A9A6D;
+    --sand-beige: #E8DCC4;
+    --sand-light: #F5F0E6;
+    --rock-gray: #6B6B6B;
+    --rock-light: #9A9A9A;
+    --lake-blue: #5A8A9A;
+    --lake-light: #7AACBC;
+    --earth-brown: #8B7355;
+    --warm-white: #FDFBF7;
+    --deep-forest: #2D3B2D;
+    
+    /* 阴影与光线 */
+    --shadow-soft: 0 4px 20px rgba(45, 59, 45, 0.08);
+    --shadow-hover: 0 8px 30px rgba(45, 59, 45, 0.12);
+    --shadow-active: 0 2px 10px rgba(45, 59, 45, 0.1);
+    
+    /* 动效时间 */
+    --transition-smooth: 220ms ease;
+}
+
+/* 基础背景 - 纸纤维质感 */
+body {
+    background: var(--warm-white);
+    background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    color: var(--deep-forest);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+}
+
+/* 导航栏 - 木质深色 */
+.navbar-natural {
+    background: linear-gradient(180deg, #3D4A3D 0%, #2D3B2D 100%);
+    box-shadow: 0 2px 15px rgba(45, 59, 45, 0.2);
+    padding: 0.8rem 0;
+}
+
+.navbar-natural .navbar-brand {
+    color: var(--sand-beige) !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.navbar-natural .nav-link {
+    color: rgba(232, 220, 196, 0.85) !important;
+    transition: var(--transition-smooth);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    margin: 0 2px;
+}
+
+.navbar-natural .nav-link:hover {
+    color: var(--sand-beige) !important;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* 卡片 - 有机形状柔和阴影 */
+.card-natural {
+    background: var(--warm-white);
+    border: 1px solid rgba(139, 115, 85, 0.12);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+.card-natural:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card-natural .card-header {
+    background: linear-gradient(135deg, var(--sand-light) 0%, var(--sand-beige) 100%);
+    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    color: var(--deep-forest);
+}
+
+/* 按钮 - 自然色系 */
+.btn-moss {
+    background: linear-gradient(135deg, var(--moss-green) 0%, var(--moss-light) 100%);
+    border: none;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 500;
+    box-shadow: 0 3px 12px rgba(91, 115, 85, 0.25);
+    transition: var(--transition-smooth);
+}
+
+.btn-moss:hover {
+    background: linear-gradient(135deg, var(--moss-light) 0%, var(--moss-green) 100%);
+    color: white;
+    box-shadow: 0 5px 18px rgba(91, 115, 85, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-moss:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-active);
+}
+
+.btn-lake {
+    background: linear-gradient(135deg, var(--lake-blue) 0%, var(--lake-light) 100%);
+    border: none;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 500;
+    box-shadow: 0 3px 12px rgba(90, 138, 154, 0.25);
+    transition: var(--transition-smooth);
+}
+
+.btn-lake:hover {
+    background: linear-gradient(135deg, var(--lake-light) 0%, var(--lake-blue) 100%);
+    color: white;
+    box-shadow: 0 5px 18px rgba(90, 138, 154, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-earth {
+    background: linear-gradient(135deg, var(--earth-brown) 0%, #A08060 100%);
+    border: none;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 500;
+    box-shadow: 0 3px 12px rgba(139, 115, 85, 0.25);
+    transition: var(--transition-smooth);
+}
+
+.btn-earth:hover {
+    color: white;
+    box-shadow: 0 5px 18px rgba(139, 115, 85, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-sand {
+    background: var(--sand-beige);
+    border: 1px solid rgba(139, 115, 85, 0.2);
+    color: var(--deep-forest);
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.btn-sand:hover {
+    background: var(--sand-light);
+    color: var(--deep-forest);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-danger-natural {
+    background: linear-gradient(135deg, #B85450 0%, #C96B67 100%);
+    border: none;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.btn-danger-natural:hover {
+    color: white;
+    box-shadow: 0 5px 18px rgba(184, 84, 80, 0.35);
+    transform: translateY(-1px);
+}
+
+/* 表单控件 */
+.form-control-natural {
+    border: 1px solid rgba(139, 115, 85, 0.25);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    background: var(--warm-white);
+    transition: var(--transition-smooth);
+}
+
+.form-control-natural:focus {
+    border-color: var(--moss-green);
+    box-shadow: 0 0 0 3px rgba(91, 115, 85, 0.15);
+    outline: none;
+}
+
+.form-select-natural {
+    border: 1px solid rgba(139, 115, 85, 0.25);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    background: var(--warm-white);
+    transition: var(--transition-smooth);
+}
+
+.form-select-natural:focus {
+    border-color: var(--moss-green);
+    box-shadow: 0 0 0 3px rgba(91, 115, 85, 0.15);
+}
+
+/* 表格 */
+.table-natural {
+    background: var(--warm-white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+.table-natural thead {
+    background: linear-gradient(135deg, var(--sand-light) 0%, var(--sand-beige) 100%);
+}
+
+.table-natural thead th {
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    color: var(--deep-forest);
+}
+
+.table-natural tbody tr {
+    transition: var(--transition-smooth);
+}
+
+.table-natural tbody tr:hover {
+    background: rgba(232, 220, 196, 0.3);
+}
+
+.table-natural td {
+    padding: 0.9rem 1rem;
+    border-color: rgba(139, 115, 85, 0.1);
+    vertical-align: middle;
+}
+
+/* 统计卡片 */
+.stat-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+    border: none;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-card-moss {
+    background: linear-gradient(135deg, var(--moss-green) 0%, var(--moss-light) 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(91, 115, 85, 0.3);
+}
+
+.stat-card-rock {
+    background: linear-gradient(135deg, var(--rock-gray) 0%, var(--rock-light) 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(107, 107, 107, 0.3);
+}
+
+.stat-card-earth {
+    background: linear-gradient(135deg, var(--earth-brown) 0%, #A08060 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(139, 115, 85, 0.3);
+}
+
+.stat-card-lake {
+    background: linear-gradient(135deg, var(--lake-blue) 0%, var(--lake-light) 100%);
+    color: white;
+    box-shadow: 0 6px 25px rgba(90, 138, 154, 0.3);
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.stat-card p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+/* 徽章 */
+.badge-pending {
+    background: var(--rock-gray);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.badge-progress {
+    background: var(--earth-brown);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.badge-completed {
+    background: var(--moss-green);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+/* 登录/注册卡片 */
+.auth-card {
+    max-width: 420px;
+    margin: 80px auto;
+    background: var(--warm-white);
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(45, 59, 45, 0.12);
+    overflow: hidden;
+}
+
+.auth-card .card-header {
+    background: linear-gradient(135deg, var(--moss-green) 0%, var(--moss-light) 100%);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.auth-card .card-header h4 {
+    color: white;
+    margin: 0;
+    font-weight: 600;
+}
+
+.auth-card .card-body {
+    padding: 2rem;
+}
+
+/* 验证码图片 */
+.captcha-img {
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.captcha-img:hover {
+    opacity: 0.85;
+}
+
+/* 进度条 */
+.progress-natural {
+    height: 28px;
+    border-radius: 14px;
+    background: var(--sand-beige);
+    overflow: hidden;
+}
+
+.progress-natural .progress-bar {
+    background: linear-gradient(90deg, var(--moss-green) 0%, var(--moss-light) 100%);
+    border-radius: 14px;
+    font-weight: 600;
+}
+
+/* 模态框 */
+.modal-natural .modal-content {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(45, 59, 45, 0.2);
+}
+
+.modal-natural .modal-header {
+    background: linear-gradient(135deg, var(--sand-light) 0%, var(--sand-beige) 100%);
+    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+    border-radius: 16px 16px 0 0;
+    padding: 1rem 1.5rem;
+}
+
+.modal-natural .modal-body {
+    padding: 1.5rem;
+}
+
+.modal-natural .modal-footer {
+    border-top: 1px solid rgba(139, 115, 85, 0.1);
+    padding: 1rem 1.5rem;
+}
+
+/* 图片缩略图 */
+.img-natural {
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.img-natural:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* 留言区域 */
+.comment-item {
+    background: var(--sand-light);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--moss-green);
+}
+
+/* 页面标题 */
+.page-title {
+    color: var(--deep-forest);
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--moss-green), var(--moss-light));
+    border-radius: 2px;
+}
+
+/* 链接 */
+a.link-natural {
+    color: var(--moss-green);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+a.link-natural:hover {
+    color: var(--moss-light);
+    text-decoration: underline;
+}
+
+/* 容器间距 */
+.section-spacing {
+    padding: 2rem 0;
+}

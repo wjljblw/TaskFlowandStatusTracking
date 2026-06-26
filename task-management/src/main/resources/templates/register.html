@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册 - 学习任务管理系统</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/natural.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #C8D4C4 0%, #D4C4A8 50%, #E8DCC4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="auth-card">
+        <div class="card-header" style="background: linear-gradient(135deg, #5A8A9A 0%, #7AACBC 100%);">
+            <h4>🌱 用户注册</h4>
+        </div>
+        <div class="card-body">
+            <form id="registerForm">
+                <div class="mb-3">
+                    <label class="form-label">用户名</label>
+                    <input type="text" name="username" class="form-control form-control-natural" placeholder="请输入用户名" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">密码</label>
+                    <input type="password" name="password" class="form-control form-control-natural" placeholder="请输入密码" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">邮箱</label>
+                    <input type="email" name="email" class="form-control form-control-natural" placeholder="请输入邮箱（选填）">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">验证码</label>
+                    <div class="input-group">
+                        <input type="text" name="captcha" class="form-control form-control-natural" placeholder="请输入验证码" required>
+                        <img id="captchaImg" class="captcha-img ms-2" onclick="refreshCaptcha()" title="点击刷新">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-lake w-100 py-2">注 册</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="/login" class="link-natural">← 已有账号？立即登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function refreshCaptcha() {
+        $.get('/user/captcha', function(res) {
+            if (res.code === 200) $('#captchaImg').attr('src', res.data.image);
+        });
+    }
+    $(function() {
+        refreshCaptcha();
+        $('#registerForm').submit(function(e) {
+            e.preventDefault();
+            $.post('/user/register', $(this).serialize(), function(res) {
+                if (res.code === 200) {
+                    alert('注册成功，请登录');
+                    location.href = '/login';
+                } else {
+                    alert(res.msg);
+                    refreshCaptcha();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

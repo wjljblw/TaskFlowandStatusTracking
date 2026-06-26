@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>任务管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/natural.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-natural">
+    <div class="container">
+        <a class="navbar-brand" href="#">🍃 管理后台</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/admin/dashboard">首页</a>
+            <a class="nav-link" href="/admin/tasks">任务管理</a>
+            <a class="nav-link" href="/admin/categories">分类管理</a>
+            <a class="nav-link" href="/admin/stats">统计报表</a>
+            <a class="nav-link" href="/user/logout">退出</a>
+        </div>
+    </div>
+</nav>
+<div class="container section-spacing">
+    <h4 class="page-title mb-4">任务管理</h4>
+    
+    <div class="card-natural mb-4">
+        <div class="card-body">
+            <form class="row g-3 align-items-end" method="get">
+                <div class="col-md-3">
+                    <label class="form-label">关键字</label>
+                    <input type="text" name="keyword" class="form-control form-control-natural" placeholder="搜索标题/描述" th:value="${keyword}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">状态</label>
+                    <select name="status" class="form-select form-select-natural">
+                        <option value="">全部状态</option>
+                        <option value="PENDING" th:selected="${status == 'PENDING'}">待处理</option>
+                        <option value="IN_PROGRESS" th:selected="${status == 'IN_PROGRESS'}">进行中</option>
+                        <option value="COMPLETED" th:selected="${status == 'COMPLETED'}">已完成</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">分类</label>
+                    <select name="categoryId" class="form-select form-select-natural">
+                        <option value="">全部分类</option>
+                        <option value="-1" th:selected="${categoryId == -1}">未分类</option>
+                        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}" th:selected="${categoryId == c.id}"></option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-lake w-100">🔍 搜索</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="table-natural">
+        <table class="table mb-0">
+            <thead>
+                <tr><th>ID</th><th>标题</th><th>用户</th><th>分类</th><th>状态</th><th>创建时间</th><th>操作</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.title}"></td>
+                <td th:text="${task.username}"></td>
+                <td th:text="${task.categoryName ?: '未分类'}"></td>
+                <td>
+                    <select class="form-select form-select-natural form-select-sm status-select" th:data-id="${task.id}" style="width:110px">
+                        <option value="PENDING" th:selected="${task.status == 'PENDING'}">待处理</option>
+                        <option value="IN_PROGRESS" th:selected="${task.status == 'IN_PROGRESS'}">进行中</option>
+                        <option value="COMPLETED" th:selected="${task.status == 'COMPLETED'}">已完成</option>
+                    </select>
+                </td>
+                <td th:text="${#temporals.format(task.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td><a th:href="@{/task/detail/{id}(id=${task.id})}" class="btn btn-lake btn-sm">查看</a></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(tasks)}">
+                <td colspan="7" class="text-center py-4 text-muted">暂无任务数据</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $('.status-select').change(function() {
+        var id = $(this).data('id');
+        var status = $(this).val();
+        $.post('/admin/task/status', {id: id, status: status}, function(res) {
+            if (res.code !== 200) alert(res.msg);
+        });
+    });
+</script>
+</body>
+</html>

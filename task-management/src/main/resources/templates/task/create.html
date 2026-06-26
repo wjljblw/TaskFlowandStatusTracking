@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新建任务</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/natural.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-natural">
+    <div class="container">
+        <a class="navbar-brand" href="#">🌿 学习任务管理</a>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="/task/list">我的任务</a>
+            <a class="nav-link" href="/user/logout">退出</a>
+        </div>
+    </div>
+</nav>
+<div class="container section-spacing">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card-natural">
+                <div class="card-header">
+                    <h5 class="mb-0">🌱 新建任务</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form id="taskForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">任务标题 <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control form-control-natural" placeholder="请输入任务标题" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">任务描述</label>
+                            <textarea name="description" class="form-control form-control-natural" rows="4" placeholder="详细描述任务内容..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">分类</label>
+                            <select name="categoryId" class="form-select form-select-natural">
+                                <option value="">请选择分类</option>
+                                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">上传图片</label>
+                            <input type="file" name="image" class="form-control form-control-natural" accept="image/*">
+                            <small class="text-muted">支持 JPG、PNG 格式，最大 10MB</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-moss px-4">提交任务</button>
+                            <a href="/task/list" class="btn btn-sand">返回列表</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $('#taskForm').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: '/task/save',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                if (res.code === 200) {
+                    alert('创建成功');
+                    location.href = '/task/list';
+                } else {
+                    alert(res.msg);
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
